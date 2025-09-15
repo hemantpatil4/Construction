@@ -13,5 +13,18 @@ const numberSlice = createSlice({
   },
 });
 
+const userSlice = createSlice({
+  name: "userData",
+  initialState: {
+    userData: [],
+  },
+  reducers: {
+    setUserData: (state, action) => {
+      state.userData = action.payload;
+    },
+  },
+});
 export const { addNumber } = numberSlice.actions;
+export const { setUserData } = userSlice.actions;
 export default numberSlice.reducer;
+export const userDataReducer = userSlice.reducer;

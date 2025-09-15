@@ -1,8 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import numberReducer from "../features/numberSlice";
+
+import flatsReducer from "../features/flatsSlice";
+import buildingsReducer from "../features/buildingsSlice";
 
 export const store = configureStore({
   reducer: {
-    number: numberReducer,
+    flats: flatsReducer,
+    buildings: buildingsReducer,
   },
 });
