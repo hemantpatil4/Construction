@@ -1,0 +1,32 @@
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+
+# Copy solution and project files
+COPY Construction.sln .
+COPY src/AuthService/AuthService.API/AuthService.API.csproj src/AuthService/AuthService.API/
+COPY src/AuthService/AuthService.Application/AuthService.Application.csproj src/AuthService/AuthService.Application/
+COPY src/AuthService/AuthService.Domain/AuthService.Domain.csproj src/AuthService/AuthService.Domain/
+COPY src/AuthService/AuthService.Infrastructure/AuthService.Infrastructure.csproj src/AuthService/AuthService.Infrastructure/
+COPY src/BuildingFlatService/BuildingFlatService.API/BuildingFlatService.API.csproj src/BuildingFlatService/BuildingFlatService.API/
+COPY src/BuildingFlatService/BuildingFlatService.Application/BuildingFlatService.Application.csproj src/BuildingFlatService/BuildingFlatService.Application/
+COPY src/BuildingFlatService/BuildingFlatService.Domain/BuildingFlatService.Domain.csproj src/BuildingFlatService/BuildingFlatService.Domain/
+COPY src/BuildingFlatService/BuildingFlatService.Infrastructure/BuildingFlatService.Infrastructure.csproj src/BuildingFlatService/BuildingFlatService.Infrastructure/
+
+RUN dotnet restore
+
+# Copy all source
+COPY . .
+
+# Build & publish AuthService
+WORKDIR /src/src/AuthService/AuthService.API
+RUN dotnet publish -c Release -o /app/publish
+
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+WORKDIR /app
+COPY --from=build /app/publish .
+
+ENV ASPNETCORE_URLS=http://+:8080
+ENV ASPNETCORE_ENVIRONMENT=Production
+EXPOSE 8080
+
+ENTRYPOINT ["dotnet", "AuthService.API.dll"]

@@ -1,0 +1,32 @@
+.not-found {
+  min-height: calc(100vh - 68px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 24px;
+  background: var(--bg-secondary);
+}
+
+.not-found h1 {
+  font-size: 6rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--color-primary), #0ea5e9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+}
+
+.not-found h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+
+.not-found p {
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+  max-width: 400px;
+}

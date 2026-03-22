@@ -1,0 +1,840 @@
+[
+  {
+    "buildingName": "Shivneri - A Wing",
+    "totalFloors": 6,
+    "floorHeight": 10,
+    "typicalLayout": [
+      {
+        "unitSuffix": "01",
+        "position": [
+          -15.0,
+          -21.12
+        ],
+        "size": [
+          24.75,
+          22
+        ],
+        "rooms": [
+          {
+            "name": "Kitchen",
+            "position": [
+              -5.0,
+              -5.88
+            ],
+            "size": [
+              14.75,
+              10.25
+            ],
+            "color": "#fde68a"
+          },
+          {
+            "name": "Master Bed",
+            "position": [
+              7.38,
+              -5.88
+            ],
+            "size": [
+              10,
+              10.25
+            ],
+            "color": "#bfdbfe"
+          },
+          {
+            "name": "Balcony",
+            "position": [
+              -11.38,
+              5.12
+            ],
+            "size": [
+              2,
+              11.75
+            ],
+            "color": "#bbf7d0"
+          },
+          {
+            "name": "Living Room",
+            "position": [
+              -5.62,
+              5.12
+            ],
+            "size": [
+              9.5,
+              11.75
+            ],
+            "color": "#e8d5b7"
+          },
+          {
+            "name": "Bedroom",
+            "position": [
+              3.12,
+              5.12
+            ],
+            "size": [
+              8,
+              11.75
+            ],
+            "color": "#ddd6fe"
+          },
+          {
+            "name": "Toilet",
+            "position": [
+              9.75,
+              2.0
+            ],
+            "size": [
+              5.25,
+              5.5
+            ],
+            "color": "#a5f3fc"
+          },
+          {
+            "name": "Bath",
+            "position": [
+              9.75,
+              7.88
+            ],
+            "size": [
+              5.25,
+              6.25
+            ],
+            "color": "#a5f3fc"
+          }
+        ]
+      },
+      {
+        "unitSuffix": "02",
+        "position": [
+          12.38,
+          -21.12
+        ],
+        "size": [
+          30,
+          22
+        ],
+        "rooms": [
+          {
+            "name": "Kitchen",
+            "position": [
+              -10.38,
+              -5.38
+            ],
+            "size": [
+              9.25,
+              11.25
+            ],
+            "color": "#fde68a"
+          },
+          {
+            "name": "Master Bed",
+            "position": [
+              -0.12,
+              -5.88
+            ],
+            "size": [
+              11.25,
+              10.25
+            ],
+            "color": "#bfdbfe"
+          },
+          {
+            "name": "Bath",
+            "position": [
+              8.25,
+              -9.0
+            ],
+            "size": [
+              5.5,
+              4
+            ],
+            "color": "#a5f3fc"
+          },
+          {
+            "name": "Dry Balcony",
+            "position": [
+              8.25,
+              -5.0
+            ],
+            "size": [
+              5.5,
+              4
+            ],
+            "color": "#bbf7d0"
+          },
+          {
+            "name": "Balcony",
+            "position": [
+              13.0,
+              -5.62
+            ],
+            "size": [
+              4,
+              10.75
+            ],
+            "color": "#bbf7d0"
+          },
+          {
+            "name": "Living Room",
+            "position": [
+              -8.25,
+              5.62
+            ],
+            "size": [
+              13.5,
+              10.75
+            ],
+            "color": "#e8d5b7"
+          },
+          {
+            "name": "Bedroom",
+            "position": [
+              4.12,
+              5.25
+            ],
+            "size": [
+              11.25,
+              10
+            ],
+            "color": "#ddd6fe"
+          },
+          {
+            "name": "Toilet",
+            "position": [
+              12.38,
+              4.09
+            ],
+            "size": [
+              5.25,
+              7.67
+            ],
+            "color": "#a5f3fc"
+          }
+        ]
+      },
+      {
+        "unitSuffix": "03",
+        "position": [
+          12.38,
+          0.0
+        ],
+        "size": [
+          30,
+          20.25
+        ],
+        "rooms": [
+          {
+            "name": "Kitchen",
+            "position": [
+              -9.5,
+              -6.0
+            ],
+            "size": [
+              11,
+              8.25
+            ],
+            "color": "#fde68a"
+          },
+          {
+            "name": "Master Bed",
+            "position": [
+              1.38,
+              -5.0
+            ],
+            "size": [
+              10.75,
+              10.25
+            ],
+            "color": "#bfdbfe"
+          },
+          {
+            "name": "Bath",
+            "position": [
+              8.88,
+              -8.12
+            ],
+            "size": [
+              4.25,
+              4
+            ],
+            "color": "#a5f3fc"
+          },
+          {
+            "name": "Dry Balcony",
+            "position": [
+              8.88,
+              -4.12
+            ],
+            "size": [
+              4.25,
+              4
+            ],
+            "color": "#bbf7d0"
+          },
+          {
+            "name": "Balcony",
+            "position": [
+              13.0,
+              -4.62
+            ],
+            "size": [
+              4,
+              11
+            ],
+            "color": "#bbf7d0"
+          },
+          {
+            "name": "Living Room",
+            "position": [
+              -9.0,
+              4.12
+            ],
+            "size": [
+              12,
+              12
+            ],
+            "color": "#e8d5b7"
+          },
+          {
+            "name": "Bedroom",
+            "position": [
+              2.38,
+              5.12
+            ],
+            "size": [
+              10.75,
+              10
+            ],
+            "color": "#ddd6fe"
+          },
+          {
+            "name": "Toilet",
+            "position": [
+              9.38,
+              1.25
+            ],
+            "size": [
+              3.25,
+              6.75
+            ],
+            "color": "#a5f3fc"
+          }
+        ]
+      },
+      {
+        "unitSuffix": "04",
+        "position": [
+          12.38,
+          21.12
+        ],
+        "size": [
+          30,
+          22
+        ],
+        "rooms": [
+          {
+            "name": "Living Room",
+            "position": [
+              -8.25,
+              -5.62
+            ],
+            "size": [
+              13.5,
+              10.75
+            ],
+            "color": "#e8d5b7"
+          },
+          {
+            "name": "Bedroom",
+            "position": [
+              4.12,
+              -6.0
+            ],
+            "size": [
+              11.25,
+              10
+            ],
+            "color": "#ddd6fe"
+          },
+          {
+            "name": "Toilet",
+            "position": [
+              12.38,
+              -7.17
+            ],
+            "size": [
+              5.25,
+              7.67
+            ],
+            "color": "#a5f3fc"
+          },
+          {
+            "name": "Kitchen",
+            "position": [
+              -9.0,
+              5.38
+            ],
+            "size": [
+              12,
+              11.25
+            ],
+            "color": "#fde68a"
+          },
+          {
+            "name": "Master Bed",
+            "position": [
+              2.38,
+              4.88
+            ],
+            "size": [
+              10.75,
+              10.25
+            ],
+            "color": "#bfdbfe"
+          },
+          {
+            "name": "Bath",
+            "position": [
+              9.38,
+              1.75
+            ],
+            "size": [
+              3.25,
+              4
+            ],
+            "color": "#a5f3fc"
+          },
+          {
+            "name": "Dry Balcony",
+            "position": [
+              9.38,
+              5.75
+            ],
+            "size": [
+              3.25,
+              4
+            ],
+            "color": "#bbf7d0"
+          },
+          {
+            "name": "Balcony",
+            "position": [
+              13.0,
+              5.12
+            ],
+            "size": [
+              4,
+              10.75
+            ],
+            "color": "#bbf7d0"
+          }
+        ]
+      },
+      {
+        "unitSuffix": "05",
+        "position": [
+          -15.0,
+          21.12
+        ],
+        "size": [
+          24.75,
+          22
+        ],
+        "rooms": [
+          {
+            "name": "Bath",
+            "position": [
+              -9.75,
+              -7.88
+            ],
+            "size": [
+              5.25,
+              6.25
+            ],
+            "color": "#a5f3fc"
+          },
+          {
+            "name": "Toilet",
+            "position": [
+              -9.75,
+              -2.0
+            ],
+            "size": [
+              5.25,
+              5.5
+            ],
+            "color": "#a5f3fc"
+          },
+          {
+            "name": "Bedroom",
+            "position": [
+              -3.12,
+              -5.12
+            ],
+            "size": [
+              8,
+              11.75
+            ],
+            "color": "#ddd6fe"
+          },
+          {
+            "name": "Living Room",
+            "position": [
+              5.62,
+              -5.12
+            ],
+            "size": [
+              9.5,
+              11.75
+            ],
+            "color": "#e8d5b7"
+          },
+          {
+            "name": "Balcony",
+            "position": [
+              11.38,
+              -5.12
+            ],
+            "size": [
+              2,
+              11.75
+            ],
+            "color": "#bbf7d0"
+          },
+          {
+            "name": "Kitchen",
+            "position": [
+              -5.0,
+              5.88
+            ],
+            "size": [
+              14.75,
+              10.25
+            ],
+            "color": "#fde68a"
+          },
+          {
+            "name": "Master Bed",
+            "position": [
+              7.38,
+              5.88
+            ],
+            "size": [
+              10,
+              10.25
+            ],
+            "color": "#bfdbfe"
+          }
+        ]
+      }
+    ],
+    "commonAreas": [
+      {
+        "name": "Common Passage",
+        "position": [
+          -9.0,
+          0.0
+        ],
+        "size": [
+          12.75,
+          20.25
+        ],
+        "color": "#4ade80"
+      },
+      {
+        "name": "Fire Stairs (Up)",
+        "position": [
+          -21.38,
+          -7.62
+        ],
+        "size": [
+          12,
+          5
+        ],
+        "color": "#60a5fa"
+      },
+      {
+        "name": "Lift 1",
+        "position": [
+          -24.38,
+          -3.38
+        ],
+        "size": [
+          6,
+          3.5
+        ],
+        "color": "#fbbf24"
+      },
+      {
+        "name": "Fire Duct",
+        "position": [
+          -18.38,
+          -3.38
+        ],
+        "size": [
+          6,
+          3.5
+        ],
+        "color": "#fbbf24"
+      },
+      {
+        "name": "Refuge Area",
+        "position": [
+          -21.38,
+          0.0
+        ],
+        "size": [
+          12,
+          3.25
+        ],
+        "color": "#c084fc"
+      },
+      {
+        "name": "Lift 2",
+        "position": [
+          -24.38,
+          3.38
+        ],
+        "size": [
+          6,
+          3.5
+        ],
+        "color": "#fbbf24"
+      },
+      {
+        "name": "Elec. Duct",
+        "position": [
+          -18.38,
+          3.38
+        ],
+        "size": [
+          6,
+          3.5
+        ],
+        "color": "#fbbf24"
+      },
+      {
+        "name": "Fire Stairs (Dn)",
+        "position": [
+          -21.38,
+          7.62
+        ],
+        "size": [
+          12,
+          5
+        ],
+        "color": "#60a5fa"
+      }
+    ],
+    "flatData": [
+      {
+        "flatNo": "101",
+        "type": "2 BHK",
+        "carpet": 687,
+        "buArea": 824,
+        "status": "OWNER"
+      },
+      {
+        "flatNo": "102",
+        "type": "3 BHK",
+        "carpet": 860,
+        "buArea": 1032,
+        "status": "BUILDER"
+      },
+      {
+        "flatNo": "103",
+        "type": "2 BHK",
+        "carpet": 660,
+        "buArea": 792,
+        "status": "OWNER"
+      },
+      {
+        "flatNo": "104",
+        "type": "2 BHK",
+        "carpet": 710,
+        "buArea": 852,
+        "status": "BUILDER"
+      },
+      {
+        "flatNo": "105",
+        "type": "2 BHK",
+        "carpet": 710,
+        "buArea": 852,
+        "status": "OWNER"
+      },
+      {
+        "flatNo": "201",
+        "type": "2 BHK",
+        "carpet": 687,
+        "buArea": 824,
+        "status": "BUILDER"
+      },
+      {
+        "flatNo": "202",
+        "type": "3 BHK",
+        "carpet": 860,
+        "buArea": 1032,
+        "status": "OWNER"
+      },
+      {
+        "flatNo": "203",
+        "type": "2 BHK",
+        "carpet": 660,
+        "buArea": 792,
+        "status": "BUILDER"
+      },
+      {
+        "flatNo": "204",
+        "type": "2 BHK",
+        "carpet": 710,
+        "buArea": 852,
+        "status": "OWNER"
+      },
+      {
+        "flatNo": "205",
+        "type": "2 BHK",
+        "carpet": 710,
+        "buArea": 852,
+        "status": "BUILDER"
+      },
+      {
+        "flatNo": "301",
+        "type": "2 BHK",
+        "carpet": 687,
+        "buArea": 824,
+        "status": "OWNER"
+      },
+      {
+        "flatNo": "302",
+        "type": "3 BHK",
+        "carpet": 860,
+        "buArea": 1032,
+        "status": "BUILDER"
+      },
+      {
+        "flatNo": "303",
+        "type": "2 BHK",
+        "carpet": 660,
+        "buArea": 792,
+        "status": "OWNER"
+      },
+      {
+        "flatNo": "304",
+        "type": "2 BHK",
+        "carpet": 710,
+        "buArea": 852,
+        "status": "BUILDER"
+      },
+      {
+        "flatNo": "305",
+        "type": "2 BHK",
+        "carpet": 710,
+        "buArea": 852,
+        "status": "OWNER"
+      },
+      {
+        "flatNo": "401",
+        "type": "2 BHK",
+        "carpet": 687,
+        "buArea": 824,
+        "status": "BUILDER"
+      },
+      {
+        "flatNo": "402",
+        "type": "3 BHK",
+        "carpet": 860,
+        "buArea": 1032,
+        "status": "OWNER"
+      },
+      {
+        "flatNo": "403",
+        "type": "2 BHK",
+        "carpet": 660,
+        "buArea": 792,
+        "status": "BUILDER"
+      },
+      {
+        "flatNo": "404",
+        "type": "2 BHK",
+        "carpet": 710,
+        "buArea": 852,
+        "status": "OWNER"
+      },
+      {
+        "flatNo": "405",
+        "type": "2 BHK",
+        "carpet": 710,
+        "buArea": 852,
+        "status": "BUILDER"
+      },
+      {
+        "flatNo": "501",
+        "type": "2 BHK",
+        "carpet": 687,
+        "buArea": 824,
+        "status": "OWNER"
+      },
+      {
+        "flatNo": "502",
+        "type": "3 BHK",
+        "carpet": 860,
+        "buArea": 1032,
+        "status": "BUILDER"
+      },
+      {
+        "flatNo": "503",
+        "type": "2 BHK",
+        "carpet": 660,
+        "buArea": 792,
+        "status": "OWNER"
+      },
+      {
+        "flatNo": "504",
+        "type": "2 BHK",
+        "carpet": 710,
+        "buArea": 852,
+        "status": "BUILDER"
+      },
+      {
+        "flatNo": "505",
+        "type": "2 BHK",
+        "carpet": 710,
+        "buArea": 852,
+        "status": "OWNER"
+      },
+      {
+        "flatNo": "601",
+        "type": "2 BHK",
+        "carpet": 687,
+        "buArea": 824,
+        "status": "BUILDER"
+      },
+      {
+        "flatNo": "602",
+        "type": "3 BHK",
+        "carpet": 860,
+        "buArea": 1032,
+        "status": "OWNER"
+      },
+      {
+        "flatNo": "603",
+        "type": "2 BHK",
+        "carpet": 660,
+        "buArea": 792,
+        "status": "BUILDER"
+      },
+      {
+        "flatNo": "604",
+        "type": "2 BHK",
+        "carpet": 710,
+        "buArea": 852,
+        "status": "OWNER"
+      },
+      {
+        "flatNo": "605",
+        "type": "2 BHK",
+        "carpet": 710,
+        "buArea": 852,
+        "status": "BUILDER"
+      }
+    ]
+  }
+]

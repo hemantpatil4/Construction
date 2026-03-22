@@ -1,0 +1,428 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: app-secrets
+  namespace: grafana-test
+type: Opaque
+stringData:
+  sa-password: "YourStrong!Pass123"
+  jwt-secret: "YourSuperSecretKeyThatIsAtLeast32CharactersLong!"
+  auth-db-connection: "Server=mssql-service,1433;Database=ConstructionAuthDb;User Id=sa;Password=YourStrong!Pass123;TrustServerCertificate=True;MultipleActiveResultSets=true"
+  building-db-connection: "Server=mssql-service,1433;Database=ConstructionBuildingFlatDb;User Id=sa;Password=YourStrong!Pass123;TrustServerCertificate=True;MultipleActiveResultSets=true"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mssql-data-pvc
+  namespace: grafana-test
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+# ==================== SQL SERVER ====================
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: mssql
+  namespace: grafana-test
+  labels:
+    app: mssql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mssql
+  template:
+    metadata:
+      labels:
+        app: mssql
+    spec:
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      securityContext:
+        fsGroup: 10001
+      initContainers:
+        - name: init-permissions
+          image: "mcr.microsoft.com/mssql/server:2022-latest"
+          command:
+            [
+              "sh",
+              "-c",
+              "chown -R 10001:0 /var/opt/mssql && chmod -R 775 /var/opt/mssql",
+            ]
+          securityContext:
+            runAsUser: 0
+          volumeMounts:
+            - name: mssql-data
+              mountPath: /var/opt/mssql
+      containers:
+        - name: mssql
+          image: "mcr.microsoft.com/mssql/server:2022-latest"
+          ports:
+            - name: 1433-tcp
+              containerPort: 1433
+              protocol: TCP
+          env:
+            - name: ACCEPT_EULA
+              value: "Y"
+            - name: MSSQL_SA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: sa-password
+            - name: MSSQL_PID
+              value: "Developer"
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 100m
+              memory: 512Mi
+          volumeMounts:
+            - name: mssql-data
+              mountPath: /var/opt/mssql
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+      volumes:
+        - name: mssql-data
+          persistentVolumeClaim:
+            claimName: mssql-data-pvc
+      dnsPolicy: ClusterFirst
+      tolerations:
+        - key: dedicated
+          operator: Equal
+          value: hdfc
+          effect: NoSchedule
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: hdfc
+                    operator: In
+                    values:
+                      - "true"
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mssql-service
+  namespace: grafana-test
+spec:
+  selector:
+    app: mssql
+  ports:
+    - name: 1433-tcp
+      port: 1433
+      targetPort: 1433
+      protocol: TCP
+  type: ClusterIP
+---
+# ==================== AUTH SERVICE ====================
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: auth-service
+  namespace: grafana-test
+  labels:
+    app: auth-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth-service
+  template:
+    metadata:
+      labels:
+        app: auth-service
+    spec:
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: quayredirect
+      terminationGracePeriodSeconds: 30
+      securityContext: {}
+      containers:
+        - name: auth-service
+          image: "quay.io/vinayakv2m/finiq/auth-service:latest"
+          ports:
+            - name: 8080-tcp
+              containerPort: 8080
+              protocol: TCP
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: Production
+            - name: ASPNETCORE_URLS
+              value: "http://+:8080"
+            - name: ConnectionStrings__AuthDb
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: auth-db-connection
+            - name: JwtSettings__Secret
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: jwt-secret
+            - name: JwtSettings__Issuer
+              value: "AuthService"
+            - name: JwtSettings__Audience
+              value: "ConstructionServices"
+            - name: JwtSettings__ExpiryInMinutes
+              value: "60"
+          resources:
+            limits:
+              cpu: 250m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+      dnsPolicy: ClusterFirst
+      tolerations:
+        - key: dedicated
+          operator: Equal
+          value: hdfc
+          effect: NoSchedule
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: hdfc
+                    operator: In
+                    values:
+                      - "true"
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-service
+  namespace: grafana-test
+spec:
+  selector:
+    app: auth-service
+  ports:
+    - name: 8080-tcp
+      port: 8080
+      targetPort: 8080
+      protocol: TCP
+  type: ClusterIP
+---
+# ==================== BUILDING FLAT SERVICE ====================
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: building-service
+  namespace: grafana-test
+  labels:
+    app: building-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: building-service
+  template:
+    metadata:
+      labels:
+        app: building-service
+    spec:
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: quayredirect
+      terminationGracePeriodSeconds: 30
+      securityContext: {}
+      containers:
+        - name: building-service
+          image: "quay.io/vinayakv2m/finiq/building-service:latest"
+          ports:
+            - name: 8080-tcp
+              containerPort: 8080
+              protocol: TCP
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: Production
+            - name: ASPNETCORE_URLS
+              value: "http://+:8080"
+            - name: ConnectionStrings__BuildingFlatDb
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: building-db-connection
+            - name: JwtSettings__Secret
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: jwt-secret
+            - name: JwtSettings__Issuer
+              value: "AuthService"
+            - name: JwtSettings__Audience
+              value: "ConstructionServices"
+            - name: JwtSettings__ExpiryInMinutes
+              value: "60"
+          resources:
+            limits:
+              cpu: 250m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+      dnsPolicy: ClusterFirst
+      tolerations:
+        - key: dedicated
+          operator: Equal
+          value: hdfc
+          effect: NoSchedule
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: hdfc
+                    operator: In
+                    values:
+                      - "true"
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: building-service
+  namespace: grafana-test
+spec:
+  selector:
+    app: building-service
+  ports:
+    - name: 8080-tcp
+      port: 8080
+      targetPort: 8080
+      protocol: TCP
+  type: ClusterIP
+---
+# ==================== FRONTEND ====================
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: frontend
+  namespace: grafana-test
+  labels:
+    app: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: quayredirect
+      terminationGracePeriodSeconds: 30
+      securityContext: {}
+      containers:
+        - name: frontend
+          image: "quay.io/vinayakv2m/finiq/frontend:latest"
+          ports:
+            - name: 8080-tcp
+              containerPort: 8080
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 200m
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+      dnsPolicy: ClusterFirst
+      tolerations:
+        - key: dedicated
+          operator: Equal
+          value: hdfc
+          effect: NoSchedule
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: hdfc
+                    operator: In
+                    values:
+                      - "true"
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+  namespace: grafana-test
+spec:
+  selector:
+    app: frontend
+  ports:
+    - name: 8080-tcp
+      port: 8080
+      targetPort: 8080
+      protocol: TCP
+  type: ClusterIP
+---
+# ==================== ROUTE (External Access) ====================
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: frontend-route
+  namespace: grafana-test
+spec:
+  to:
+    kind: Service
+    name: frontend-service
+    weight: 100
+  port:
+    targetPort: 8080-tcp
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
