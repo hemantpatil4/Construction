@@ -262,6 +262,43 @@
   border-color: #ef4444;
 }
 
+/* Interior Tour Button */
+.btn-interior-tour {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 200, 170, 0.3);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 255, 204, 0.08),
+    rgba(0, 179, 255, 0.08)
+  );
+  color: #00c8aa;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-interior-tour:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 255, 204, 0.18),
+    rgba(0, 179, 255, 0.18)
+  );
+  border-color: #00ffcc;
+  color: #00ffcc;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(0, 255, 204, 0.2);
+}
+
+.btn-interior-tour svg {
+  font-size: 1rem;
+}
+
 .price-cell {
   font-weight: 700;
   color: var(--color-primary);

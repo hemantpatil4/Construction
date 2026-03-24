@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import {
   HiOutlineBuildingOffice2,
   HiOutlineMapPin,
@@ -14,6 +14,7 @@ import {
   HiOutlineExclamationTriangle,
   HiOutlineGlobeAlt,
   HiOutlinePhoto,
+  HiOutlineEye,
 } from "react-icons/hi2";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { fetchBuildingById } from "../../store/slices/buildingSlice";
@@ -42,6 +43,7 @@ type FilterType = "all" | "available" | "occupied";
 const BuildingDetail = () => {
   const { id } = useParams<{ id: string }>();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { selectedBuilding, loading } = useAppSelector((s) => s.buildings);
   const { user } = useAppSelector((s) => s.auth);
   const { photos: buildingPhotos } = useAppSelector((s) => s.gallery);
@@ -440,6 +442,7 @@ const BuildingDetail = () => {
                   <th>Area (sq ft)</th>
                   <th>Price (₹)</th>
                   <th>Status</th>
+                  <th>Interior</th>
                   {isAdmin && <th>Actions</th>}
                 </tr>
               </thead>
@@ -458,6 +461,17 @@ const BuildingDetail = () => {
                       >
                         {flat.isAvailable ? "● Available" : "● Occupied"}
                       </span>
+                    </td>
+                    <td>
+                      <button
+                        className="btn btn-interior-tour"
+                        onClick={() =>
+                          navigate(`/flat/${flat.flatNumber}/interior`)
+                        }
+                        title="View 3D Interior"
+                      >
+                        <HiOutlineEye /> Walk-through
+                      </button>
                     </td>
                     {isAdmin && (
                       <td>

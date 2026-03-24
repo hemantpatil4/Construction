@@ -24,6 +24,7 @@ import ParametricViewerPage from "./pages/ParametricViewer/ParametricViewerPage"
 import Contact from "./pages/Contact/Contact";
 import MapView from "./pages/Map/MapView";
 import Projects from "./pages/Projects/Projects";
+import FlatInteriorPage from "./pages/FlatInterior/FlatInteriorPage";
 import NotFound from "./pages/NotFound/NotFound";
 
 // Styles
@@ -154,6 +155,16 @@ const App = () => {
                 element={
                   <ProtectedRoute>
                     <MapView />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* Flat Interior 3D Walkthrough */}
+              <Route
+                path="/flat/:flatNumber/interior"
+                element={
+                  <ProtectedRoute>
+                    <FlatInteriorPage />
                   </ProtectedRoute>
                 }
               />
